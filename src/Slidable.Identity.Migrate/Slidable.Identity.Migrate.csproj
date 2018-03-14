@@ -10,7 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.1.0-preview1-final" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.0-preview1" />
-    <PackageReference Include="RendleLabs.EntityFrameworkCore.MigrateHelper" Version="2.1.0-preview1-031543" />
+    <PackageReference Include="RendleLabs.EntityFrameworkCore.MigrateHelper" Version="2.1.0-preview1-141720" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.1.0-preview1-final" />

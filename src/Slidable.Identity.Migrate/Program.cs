@@ -12,9 +12,7 @@ namespace Slidable.Identity.Migrate
         public static async Task Main(string[] args)
         {
             var loggerFactory = new LoggerFactory().AddConsole((_, level) => true);
-            Console.WriteLine("Trying Migration...");
             await new MigrationHelper(loggerFactory).TryMigrate(args);
-            Console.WriteLine("Done.");
         }
     }
 }
