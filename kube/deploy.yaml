@@ -1,0 +1,70 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: identity
+  namespace: slidable
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: identity
+    spec:
+      containers:
+      - image: slidable/identity:1.1.0
+        imagePullPolicy: Always
+        name: identity
+        env:
+          - name: ConnectionStrings__Identity
+            valueFrom:
+              secretKeyRef:
+                name: identity-db
+                key: connstr
+          - name: Authentication__Twitter__ConsumerKey
+            valueFrom:
+              secretKeyRef:
+                name: twitter
+                key: consumerKey
+          - name: Authentication__Twitter__ConsumerSecret
+            valueFrom:
+              secretKeyRef:
+                name: twitter
+                key: consumerSecret
+          - name: Security__ApiKeyHashPhrase
+            valueFrom:
+              secretKeyRef:
+                name: api-key
+                key: hashPhrase
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: identity
+  namespace: slidable
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    name: http
+  selector:
+    app: identity
+  sessionAffinity: ClientIP
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: identity
+  namespace: slidable
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: slidable.io
+    http:
+      paths:
+      - path: /i
+        backend:
+          serviceName: identity
+          servicePort: 80

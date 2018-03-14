@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: identity-migrate
+  namespace: slidable
+spec:
+  template:
+    metadata:
+      name: identity-migrate
+    spec:
+      containers:
+      - name: identity-migrate
+        image: shtik/identity-migrate:1.1.0
+        args: ["$(SECRET_CONNSTR)"]
+        env:
+          - name: SECRET_CONNSTR
+            valueFrom:
+              secretKeyRef:
+                name: identity-db
+                key: connstr
+      restartPolicy: OnFailure

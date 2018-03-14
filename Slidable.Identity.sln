@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{26F994D2-C231-4EA7-8409-FA86DA7AB758}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Slidable.Identity", "src\Slidable.Identity\Slidable.Identity.csproj", "{692BB3DE-3EF2-4726-B0B1-F10326079C3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Slidable.Identity", "src\Slidable.Identity\Slidable.Identity.csproj", "{692BB3DE-3EF2-4726-B0B1-F10326079C3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Slidable.Identity.Data", "src\Slidable.Identity.Data\Slidable.Identity.Data.csproj", "{FFE46EC4-BF76-49D8-900F-9913799C276E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Slidable.Identity.Data", "src\Slidable.Identity.Data\Slidable.Identity.Data.csproj", "{FFE46EC4-BF76-49D8-900F-9913799C276E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Slidable.Identity.Migrate", "src\Slidable.Identity.Migrate\Slidable.Identity.Migrate.csproj", "{1FB0B70F-422B-4B65-B480-084144E2697A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Slidable.Identity.Migrate", "src\Slidable.Identity.Migrate\Slidable.Identity.Migrate.csproj", "{1FB0B70F-422B-4B65-B480-084144E2697A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,9 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{692BB3DE-3EF2-4726-B0B1-F10326079C3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -61,9 +58,15 @@ Global
 		{1FB0B70F-422B-4B65-B480-084144E2697A}.Release|x86.ActiveCfg = Release|Any CPU
 		{1FB0B70F-422B-4B65-B480-084144E2697A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{692BB3DE-3EF2-4726-B0B1-F10326079C3C} = {26F994D2-C231-4EA7-8409-FA86DA7AB758}
 		{FFE46EC4-BF76-49D8-900F-9913799C276E} = {26F994D2-C231-4EA7-8409-FA86DA7AB758}
 		{1FB0B70F-422B-4B65-B480-084144E2697A} = {26F994D2-C231-4EA7-8409-FA86DA7AB758}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {32870395-E83A-4F02-B1A2-76A50977B892}
 	EndGlobalSection
 EndGlobal

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Slidable.Identity.Data;
 
@@ -13,7 +14,7 @@ namespace Slidable.Identity.Migrate
         public ApplicationDbContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseNpgsql(LocalPostgres, b => b.MigrationsAssembly(MigrationAssemblyName));
+                .UseNpgsql(args.FirstOrDefault() ?? LocalPostgres, b => b.MigrationsAssembly(MigrationAssemblyName));
             
             return new ApplicationDbContext(builder.Options);
         }

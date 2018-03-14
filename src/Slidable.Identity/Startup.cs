@@ -1,26 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Slidable.Identity.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StackExchange.Redis;
 
 namespace Slidable.Identity
 {
     [PublicAPI]
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private static ConnectionMultiplexer _connectionMultiplexer;
+        private readonly IHostingEnvironment _env;
+
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
+            _env = env;
             Configuration = configuration;
         }
 
@@ -29,13 +32,28 @@ namespace Slidable.Identity
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddSingleton<IApiKeyProvider, ApiKeyProvider>();
+            services.AddDbContextPool<ApplicationDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("Identity")));
             
-            services.AddIdentity<IdentityUser, IdentityRole>(options => options.Stores.MaxLengthForKeys = 128)
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+                {
+                    options.Stores.MaxLengthForKeys = 128;
+                    options.User.RequireUniqueEmail = true;
+                })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(o => { o.Cookie.Path = "/"; })
+                .AddTwitter(o =>
+                {
+                    o.ConsumerKey = Configuration["Authentication:Twitter:ConsumerKey"];
+                    o.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
+                });
+
+            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, SlidableClaimsPrincipalFactory>();
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -44,13 +62,47 @@ namespace Slidable.Identity
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            var redisHost = Configuration.GetSection("Redis").GetValue<string>("Host");
+            if (!string.IsNullOrWhiteSpace(redisHost))
+            {
+                var redisPort = Configuration.GetSection("Redis").GetValue<int>("Port");
+                if (redisPort == 0)
+                {
+                    redisPort = 6379;
+                }
+
+                _connectionMultiplexer = ConnectionMultiplexer.Connect($"{redisHost}:{redisPort}");
+                services.AddSingleton(_connectionMultiplexer);
+            }
+
+            if (!_env.IsDevelopment())
+            {
+                var dpBuilder = services.AddDataProtection().SetApplicationName("slidable");
+                if (_connectionMultiplexer != null)
+                {
+                    dpBuilder.PersistKeysToRedis(_connectionMultiplexer, "DataProtection:Keys");
+                }
+            }
+            else
+            {
+                services.AddDataProtection()
+                    .DisableAutomaticKeyGeneration()
+                    .SetApplicationName("slidable");
+            }
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
+            var pathBase = Configuration["Runtime:PathBase"];
+            if (!string.IsNullOrEmpty(pathBase))
+            {
+                app.UsePathBase(pathBase);
+            }
+
+            if (env.IsDevelopment() || string.Equals(Configuration["Runtime:DeveloperExceptionPage"], "true", StringComparison.OrdinalIgnoreCase))
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
@@ -58,10 +110,10 @@ namespace Slidable.Identity
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
+                //app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 

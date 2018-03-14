@@ -6,18 +6,30 @@
     <title>@ViewData["Title"] - Slidable.Identity</title>
 
     <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/bootswatch/bootswatch.css" />
+        <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+        <link href="~/lib/bootstrap-social/bootstrap-social.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
+
     <environment exclude="Development">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/darkly/bootstrap.min.css"
+              rel="stylesheet"
+              asp-fallback-href="~/lib/bootswatch/bootswatch.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              integrity="sha384-S7YMK1xjUjSpEnF4P8hPUcgjXYLZKK3fQW1j5ObLSl787II9p8RO9XUGehRmKsxd"
+              crossorigin="anonymous">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+              integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+              crossorigin="anonymous"
+              asp-fallback-href="~/lib/font-awesome/css/font-awesome.min.css"
+              asp-fallback-test-class="fa-2x" asp-fallback-test-property="font-size" asp-fallback-test-value="2em">
+        <link rel="stylesheet" href="~/lib/bootstrap-social/bootstrap-social.min.css" asp-append-version="true">
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true">
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -26,13 +38,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Slidable.Identity</a>
+                <a href="/" class="navbar-brand">Slidable.Identity</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
@@ -45,7 +55,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - Slidable.Identity</p>
+            <p>&copy; 2018 - RendleLabs</p>
         </footer>
     </div>
 

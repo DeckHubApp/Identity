@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>aspnet-Slidable.Identity-03516781-C0AD-4791-BF53-5C9625EC7362</UserSecretsId>
+    <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
   </PropertyGroup>
   <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" />
@@ -9,10 +10,13 @@
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.0-preview1-final" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.AzureStorage" Version="2.1.0-preview1-final" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.Redis" Version="0.4.0-alpha1-final" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.0-preview1-final" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.0-preview1-final" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0-preview1-final" PrivateAssets="All" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.0-preview1" />
+    <PackageReference Include="WindowsAzure.Storage" Version="9.1.0" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.1.0-preview1-final" />
@@ -20,5 +24,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Slidable.Identity.Data\Slidable.Identity.Data.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Pages" />
   </ItemGroup>
 </Project>
