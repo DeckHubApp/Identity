@@ -64,7 +64,7 @@ spec:
   - host: slidable.io
     http:
       paths:
-      - path: /i
+      - path: /Identity
         backend:
           serviceName: identity
           servicePort: 80
