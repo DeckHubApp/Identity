@@ -8,7 +8,7 @@ namespace Slidable.Identity.Controllers
     {
         public IActionResult Index()
         {
-            return LocalRedirect("/");
+            return View();
         }
 
         public IActionResult Privacy()

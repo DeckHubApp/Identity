@@ -96,12 +96,6 @@ namespace Slidable.Identity
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            var pathBase = Configuration["Runtime:PathBase"];
-            if (!string.IsNullOrEmpty(pathBase))
-            {
-                app.UsePathBase(pathBase);
-            }
-
             if (env.IsDevelopment() || string.Equals(Configuration["Runtime:DeveloperExceptionPage"], "true", StringComparison.OrdinalIgnoreCase))
             {
                 app.UseDeveloperExceptionPage();
@@ -111,6 +105,24 @@ namespace Slidable.Identity
             {
                 app.UseExceptionHandler("/Home/Error");
                 //app.UseHsts();
+            }
+
+            var pathBase = Configuration["Runtime:PathBase"];
+            if (!string.IsNullOrEmpty(pathBase))
+            {
+                app.UsePathBase(pathBase);
+                if (pathBase.Equals("/identity", StringComparison.OrdinalIgnoreCase))
+                {
+                    app.Use(next => context =>
+                    {
+                        if (context.Request.Path.StartsWithSegments("/Account"))
+                        {
+                            context.Request.Path = new PathString("/Identity").Add(context.Request.Path);
+                        }
+
+                        return next(context);
+                    });
+                }
             }
 
             //app.UseHttpsRedirection();
