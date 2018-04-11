@@ -90,7 +90,9 @@ namespace Slidable.Identity
                     .SetApplicationName("slidable");
             }
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddMetrics();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,7 +106,6 @@ namespace Slidable.Identity
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                //app.UseHsts();
             }
 
             var pathBase = Configuration["Runtime:PathBase"];
