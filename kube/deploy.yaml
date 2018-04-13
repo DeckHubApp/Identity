@@ -11,10 +11,18 @@ spec:
         app: identity
     spec:
       containers:
-      - image: slidable/identity:1.1.0
+      - image: slidable/identity:1.0.0-alpha1
         imagePullPolicy: Always
         name: identity
         env:
+          - name: Redis__Host
+            value: 'redis'
+          - name: Runtime__PathBase
+            value: '/i'
+          - name: AppMetrics__InfluxDbServer
+            value: 'http://rlmetrics.eastus.cloudapp.azure.com:8086'
+          - name: AppMetrics__InfluxDbDatabase
+            value: 'slidable'
           - name: ConnectionStrings__Identity
             valueFrom:
               secretKeyRef:
@@ -64,7 +72,7 @@ spec:
   - host: slidable.io
     http:
       paths:
-      - path: /Identity
+      - path: /i
         backend:
           serviceName: identity
           servicePort: 80
