@@ -2,7 +2,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: identity
-  namespace: slidable
+  namespace: deckhub
 spec:
   replicas: 2
   template:
@@ -11,7 +11,7 @@ spec:
         app: identity
     spec:
       containers:
-      - image: slidable/identity:1.0.0-alpha1
+      - image: deckhub/identity:1.0.0-alpha1
         imagePullPolicy: Always
         name: identity
         env:
@@ -22,7 +22,7 @@ spec:
           - name: AppMetrics__InfluxDbServer
             value: 'http://rlmetrics.eastus.cloudapp.azure.com:8086'
           - name: AppMetrics__InfluxDbDatabase
-            value: 'slidable'
+            value: 'deckhub'
           - name: ConnectionStrings__Identity
             valueFrom:
               secretKeyRef:
@@ -50,7 +50,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: identity
-  namespace: slidable
+  namespace: deckhub
 spec:
   ports:
   - port: 80
@@ -64,12 +64,12 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: identity
-  namespace: slidable
+  namespace: deckhub
   annotations:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-  - host: slidable.io
+  - host: deckhub.app
     http:
       paths:
       - path: /i

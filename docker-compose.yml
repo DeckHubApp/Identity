@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+
+  db:
+    image: postgres:10.3-alpine
+    environment:
+      POSTGRES_USER: deckhub
+      POSTGRES_PASSWORD: secretsquirrel
+    ports:
+      - 5432:5432
