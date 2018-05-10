@@ -11,14 +11,14 @@ spec:
         app: identity
     spec:
       containers:
-      - image: deckhub/identity:1.0.0-alpha1
+      - image: deckhub/identity:1.0.0-alpha2
         imagePullPolicy: Always
         name: identity
         env:
           - name: Redis__Host
             value: 'redis'
           - name: Runtime__PathBase
-            value: '/i'
+            value: '/identity'
           - name: AppMetrics__InfluxDbServer
             value: 'http://rlmetrics.eastus.cloudapp.azure.com:8086'
           - name: AppMetrics__InfluxDbDatabase
@@ -72,7 +72,11 @@ spec:
   - host: deckhub.app
     http:
       paths:
-      - path: /i
+      - path: /Identity
+        backend:
+          serviceName: identity
+          servicePort: 80
+      - path: /identity
         backend:
           serviceName: identity
           servicePort: 80
