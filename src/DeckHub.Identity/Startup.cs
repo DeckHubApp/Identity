@@ -51,12 +51,12 @@ namespace DeckHub.Identity
                 {
                     o.ConsumerKey = Configuration["Authentication:Twitter:ConsumerKey"];
                     o.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
+                })
+                .AddMicrosoftAccount(o =>
+                {
+                    o.ClientId = Configuration["Authentication:Microsoft:ApplicationId"];
+                    o.ClientSecret = Configuration["Authentication:Microsoft:Password"];
                 });
-//                .AddMicrosoftAccount(o =>
-//                {
-//                    o.ClientId = Configuration["Authentication:Microsoft:ApplicationId"];
-//                    o.ClientSecret = Configuration["Authentication:Microsoft:Password"];
-//                });
 
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, DeckHubClaimsPrincipalFactory>();
 
