@@ -11,7 +11,7 @@ spec:
         app: identity
     spec:
       containers:
-      - image: deckhub/identity:1.0.4
+      - image: deckhub/identity:1.0.5
         imagePullPolicy: Always
         name: identity
         env:
@@ -85,16 +85,6 @@ spec:
   rules:
   - host: deckhub.app
     http:
-      paths:
-      - path: /Identity
-        backend:
-          serviceName: identity
-          servicePort: 80
-      - path: /identity
-        backend:
-          serviceName: identity
-          servicePort: 80
-    https:
       paths:
       - path: /Identity
         backend:
