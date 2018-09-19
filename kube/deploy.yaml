@@ -11,7 +11,7 @@ spec:
         app: identity
     spec:
       containers:
-      - image: deckhub/id:1.0.0-alpha7
+      - image: deckhub/id:1.0.0-alpha8
         imagePullPolicy: Always
         name: identity
         env:
@@ -42,12 +42,12 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: microsoft
-                key: password
+                key: applicationId
           - name: Authentication__Microsoft__Password
             valueFrom:
               secretKeyRef:
-                name: twitter
-                key: consumerSecret
+                name: microsoft
+                key: password
           - name: Security__ApiKeyHashPhrase
             valueFrom:
               secretKeyRef:
