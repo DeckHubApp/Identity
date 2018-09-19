@@ -8,9 +8,9 @@
     <ProjectReference Include="..\DeckHub.Identity.Data\DeckHub.Identity.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.1.0-rc1-final" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.0-rc1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.0-rc1-final" />
-    <PackageReference Include="RendleLabs.EntityFrameworkCore.MigrateHelper" Version="2.1.0-rc1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.1.1" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.3" />
+    <PackageReference Include="RendleLabs.EntityFrameworkCore.MigrateHelper" Version="2.1.1.1" />
   </ItemGroup>
 </Project>

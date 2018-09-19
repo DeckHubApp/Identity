@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1.300-rc1-sdk-bionic AS build
+FROM microsoft/dotnet:2.1.402-sdk-bionic AS build
 
 WORKDIR /code
 
@@ -8,7 +8,7 @@ WORKDIR /code/src/DeckHub.Identity
 
 RUN dotnet publish --output /output --configuration Release
 
-FROM microsoft/dotnet:2.1.0-rc1-aspnetcore-runtime-bionic
+FROM microsoft/dotnet:2.1.4-aspnetcore-runtime-bionic
 
 COPY --from=build /output /app/
 

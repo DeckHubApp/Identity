@@ -47,10 +47,17 @@ namespace DeckHub.Identity
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(o => { o.Cookie.Path = "/"; })
-                .AddTwitter(o =>
+//                .AddTwitter(o =>
+//                {
+//                    o.ConsumerKey = Configuration["Authentication:Twitter:ConsumerKey"];
+//                    o.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
+//                    o.CallbackPath = "https://deckhub.app/Identity/signin-twitter";
+//                })
+                .AddMicrosoftAccount(o =>
                 {
-                    o.ConsumerKey = Configuration["Authentication:Twitter:ConsumerKey"];
-                    o.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
+                    o.ClientId = Configuration["Authentication:Microsoft:ApplicationId"];
+                    o.ClientSecret = Configuration["Authentication:Microsoft:Password"];
+                    o.CallbackPath = "https://deckhub.app/Identity/signin-microsoft";
                 });
 
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, DeckHubClaimsPrincipalFactory>();

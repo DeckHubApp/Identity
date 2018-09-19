@@ -8,16 +8,16 @@
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="App.Metrics.AspNetCore.Mvc" Version="2.1.0-alpha-0087" />
-    <PackageReference Include="App.Metrics.AspNetCore.Reporting" Version="2.1.0-alpha-0087" />
-    <PackageReference Include="App.Metrics.Reporting.Console" Version="2.1.0-alpha-0060" />
-    <PackageReference Include="App.Metrics.Reporting.InfluxDB" Version="2.1.0-alpha-0053" />
-    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.0-rc1-final" />
-    <PackageReference Include="Microsoft.AspNetCore.DataProtection.Redis" Version="0.4.0-preview3-final" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0-rc1-final" PrivateAssets="All" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.0-rc1" />
-    <PackageReference Include="WindowsAzure.Storage" Version="9.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="App.Metrics.AspNetCore.Mvc" Version="3.0.0-alpha-0098" />
+    <PackageReference Include="App.Metrics.AspNetCore.Reporting" Version="3.0.0-alpha-0094" />
+    <PackageReference Include="App.Metrics.Reporting.Console" Version="3.0.0-alpha-0081" />
+    <PackageReference Include="App.Metrics.Reporting.InfluxDB" Version="3.0.0-alpha-0067" />
+    <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.Redis" Version="0.4.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.4" PrivateAssets="All" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.2" />
+    <PackageReference Include="WindowsAzure.Storage" Version="9.3.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DeckHub.Identity.Data\DeckHub.Identity.Data.csproj" />
