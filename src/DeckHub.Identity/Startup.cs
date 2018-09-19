@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using DeckHub.Identity.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RendleLabs.DeckHub.Cookies;
 using StackExchange.Redis;
 
 namespace DeckHub.Identity
@@ -35,7 +36,7 @@ namespace DeckHub.Identity
             services.AddSingleton<IApiKeyProvider, ApiKeyProvider>();
             services.AddDbContextPool<ApplicationDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("Identity")));
-            
+
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
                 {
                     options.Stores.MaxLengthForKeys = 128;
@@ -103,7 +104,8 @@ namespace DeckHub.Identity
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment() || string.Equals(Configuration["Runtime:DeveloperExceptionPage"], "true", StringComparison.OrdinalIgnoreCase))
+            if (env.IsDevelopment() || string.Equals(Configuration["Runtime:DeveloperExceptionPage"], "true",
+                    StringComparison.OrdinalIgnoreCase))
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
@@ -116,7 +118,7 @@ namespace DeckHub.Identity
                     context.Request.Scheme = "https";
                     await next();
                 });
-            
+
                 app.UseExceptionHandler("/Home/Error");
             }
 
@@ -131,6 +133,8 @@ namespace DeckHub.Identity
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            app.UseDeckHubCookieWriter();
 
             app.UseMvc(routes =>
             {
