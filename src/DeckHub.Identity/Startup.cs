@@ -110,6 +110,13 @@ namespace DeckHub.Identity
             }
             else
             {
+                app.Use(async (context, next) =>
+                {
+                    // Override scheme to be https
+                    context.Request.Scheme = "https";
+                    await next();
+                });
+            
                 app.UseExceptionHandler("/Home/Error");
             }
 

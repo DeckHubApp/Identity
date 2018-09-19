@@ -11,7 +11,7 @@ spec:
         app: identity
     spec:
       containers:
-      - image: deckhub/identity:1.0.5
+      - image: deckhub/identity:1.0.6
         imagePullPolicy: Always
         name: identity
         env:
@@ -55,7 +55,6 @@ spec:
                 key: hashPhrase
         ports:
         - containerPort: 80
-        - containerPort: 443
 ---
 apiVersion: v1
 kind: Service
@@ -67,9 +66,6 @@ spec:
   - port: 80
     protocol: TCP
     name: http
-  - port: 443
-    protocol: TCP
-    name: https
   selector:
     app: identity
   sessionAffinity: ClientIP
@@ -89,8 +85,8 @@ spec:
       - path: /Identity
         backend:
           serviceName: identity
-          servicePort: 443
+          servicePort: 80
       - path: /identity
         backend:
           serviceName: identity
-          servicePort: 443
+          servicePort: 80
