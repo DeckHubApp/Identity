@@ -11,7 +11,7 @@ spec:
         app: identity
     spec:
       containers:
-      - image: deckhub/identity:1.0.0-alpha5
+      - image: deckhub/id:1.0.0-alpha7
         imagePullPolicy: Always
         name: identity
         env:

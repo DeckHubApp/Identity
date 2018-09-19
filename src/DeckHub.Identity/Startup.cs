@@ -57,7 +57,7 @@ namespace DeckHub.Identity
                 {
                     o.ClientId = Configuration["Authentication:Microsoft:ApplicationId"];
                     o.ClientSecret = Configuration["Authentication:Microsoft:Password"];
-                    o.CallbackPath = "https://deckhub.app/Identity/signin-microsoft";
+                    o.CallbackPath = "/Identity/signin-microsoft";
                 });
 
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, DeckHubClaimsPrincipalFactory>();
